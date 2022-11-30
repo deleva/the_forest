@@ -5,12 +5,37 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import RobustScaler
 from sklearn.compose import ColumnTransformer
 
+def preprocessor_stage(data: pd.DataFrame) -> pd.DataFrame:
+    #Nom scientifique: keep only species in commun between paris and BA
+    species_commun = ['rhus', 'castanea', 'viburnum', 'malus', 'punica', 'carya', 'phoenix', 'cydonia', 'picea', 'pterocarya', 'crataegus', 'paulownia', 'photinia', 'thuja', 'ficus', 'calocedrus', 'albizia', 'araucaria', 'tilia', 'betula', 'cryptomeria', 'populus', 'hovenia', 'ligustrum', 'pyrus', 'butia', 'chamaecyparis', 'cercis', 'magnolia', 'ilex', 'liriodendron', 'platanus', 'poncirus', 'gleditsia', 'acer', 'pinus', 'hibiscus', 'platycladus', 'eriobotrya', 'broussonetia', 'olea', 'fraxinus', 'robinia', 'alnus', 'juniperus', 'carpinus', 'trachycarpus', 'cupressocyparis', 'prunus', 'firmiana', 'lagerstroemia', 'buxus', 'ailanthus', 'koelreuteria', 'fagus', 'ginkgo', 'juglans', 'eucalyptus', 'callistemon', 'melia', 'cinnamomum', 'morus', 'celtis', 'aesculus', 'maclura', 'quercus', 'mespilus', 'laurus', 'catalpa', 'abies', 'cupressus', 'pittosporum', 'cordyline', 'ulmus', 'sambucus', 'cotoneaster', 'carica', 'taxodium', 'euonymus', 'cedrus', 'diospyros', 'acca', 'acacia', 'salix', 'liquidambar']
+    def good_species(s):
+        if s in species_commun:
+            return s
+        else:
+            return 'no_species'
+    data['nom_scientifique'] = data['nom_scientifique'].map(good_species)
+
+    #Pipeline
+    preprocessor = ColumnTransformer([
+        ('species', OneHotEncoder(sparse = False), ['nom_scientifique']),
+        ('scaler', RobustScaler(), ['hauteur_m', 'diametre_cm', 'rayon_cm'])],
+        remainder='passthrough')
+
+    #Fit the pipeline and transform the dataset
+    data_preprocessed_stage = preprocessor.fit_transform(data)
+
+    data_preprocessed_stage = pd.DataFrame(
+        data_preprocessed_stage,
+        columns=preprocessor.get_feature_names_out()
+        )
+    return data_preprocessed_stage
+
 
 def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
 
     #Creature volume column
-    hauteur = data['hauteur_m']
-    rayon = data['rayon_cm']
+    hauteur = data['scaler__hauteur_m']
+    rayon = data['scaler__rayon_cm']
     list_volume = list()
 
     for h, R in zip(hauteur, rayon):
@@ -25,7 +50,7 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
 
     #Create BEF column
     list_bef = list()
-    diametre = data['diametre_cm']
+    diametre = data['scaler__diametre_cm']
     for d in diametre:
         if d >= 12.5:
             list_bef.append(1.15)
@@ -34,12 +59,9 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
             list_bef.append(bef)
     data['bef']= list_bef
 
-
     #Pipeline
     preprocessor = ColumnTransformer([
-        ('species', OneHotEncoder(sparse = False), ['nom_scientifique']),
-        ('stage encoder', LabelEncoder(), ['stade_de_developpement']),
-        ('scaler', RobustScaler(), ['hauteur_m', 'diametre_cm', 'rayon_cm'])],
+        ('stage encoder', LabelEncoder(), ['remainder__stade_de_developpement'])],
         remainder='passthrough')
 
     #Fit the pipeline and transform the dataset
@@ -49,8 +71,5 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
         data_preprocessed,
         columns=preprocessor.get_feature_names_out()
         )
-
-    #Feature engineering
-
 
     return data_preprocessed
