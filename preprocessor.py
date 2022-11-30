@@ -17,7 +17,7 @@ def preprocessor_stage(data: pd.DataFrame) -> pd.DataFrame:
         if s in species_commun:
             return s
         else:
-            return 'no_species'
+            return 'other_species'
     data['nom_scientifique'] = data['nom_scientifique'].map(good_species)
 
     #Pipeline
@@ -33,6 +33,7 @@ def preprocessor_stage(data: pd.DataFrame) -> pd.DataFrame:
         data_preprocessed_stage,
         columns=preprocessor.get_feature_names_out()
         )
+
     return data_preprocessed_stage
 
 
