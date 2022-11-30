@@ -6,6 +6,11 @@ from sklearn.preprocessing import RobustScaler
 from sklearn.compose import ColumnTransformer
 
 def preprocessor_stage(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Function to use after the cleaning for both Paris and BA,
+    and before the model_age function.
+    """
+
     #Nom scientifique: keep only species in commun between paris and BA
     species_commun = ['rhus', 'castanea', 'viburnum', 'malus', 'punica', 'carya', 'phoenix', 'cydonia', 'picea', 'pterocarya', 'crataegus', 'paulownia', 'photinia', 'thuja', 'ficus', 'calocedrus', 'albizia', 'araucaria', 'tilia', 'betula', 'cryptomeria', 'populus', 'hovenia', 'ligustrum', 'pyrus', 'butia', 'chamaecyparis', 'cercis', 'magnolia', 'ilex', 'liriodendron', 'platanus', 'poncirus', 'gleditsia', 'acer', 'pinus', 'hibiscus', 'platycladus', 'eriobotrya', 'broussonetia', 'olea', 'fraxinus', 'robinia', 'alnus', 'juniperus', 'carpinus', 'trachycarpus', 'cupressocyparis', 'prunus', 'firmiana', 'lagerstroemia', 'buxus', 'ailanthus', 'koelreuteria', 'fagus', 'ginkgo', 'juglans', 'eucalyptus', 'callistemon', 'melia', 'cinnamomum', 'morus', 'celtis', 'aesculus', 'maclura', 'quercus', 'mespilus', 'laurus', 'catalpa', 'abies', 'cupressus', 'pittosporum', 'cordyline', 'ulmus', 'sambucus', 'cotoneaster', 'carica', 'taxodium', 'euonymus', 'cedrus', 'diospyros', 'acca', 'acacia', 'salix', 'liquidambar']
     def good_species(s):
@@ -32,6 +37,9 @@ def preprocessor_stage(data: pd.DataFrame) -> pd.DataFrame:
 
 
 def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Function to use after the model_age function for both Paris and BA.
+    """
 
     #Creature volume column
     hauteur = data['scaler__hauteur_m']
