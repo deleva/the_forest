@@ -1,11 +1,10 @@
 import pandas as pd
 import math
 from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import RobustScaler
 from sklearn.compose import ColumnTransformer
 
-def preprocessor_stage(data: pd.DataFrame) -> pd.DataFrame:
+def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
     """
     Function to use after the cleaning for both Paris and BA,
     and before the model_age function.
@@ -20,31 +19,9 @@ def preprocessor_stage(data: pd.DataFrame) -> pd.DataFrame:
             return 'other_species'
     data['nom_scientifique'] = data['nom_scientifique'].map(good_species)
 
-    #Pipeline
-    preprocessor = ColumnTransformer([
-        ('species', OneHotEncoder(sparse = False), ['nom_scientifique']),
-        ('scaler', RobustScaler(), ['hauteur_m', 'diametre_cm', 'rayon_cm'])],
-        remainder='passthrough')
-
-    #Fit the pipeline and transform the dataset
-    data_preprocessed_stage = preprocessor.fit_transform(data)
-
-    data_preprocessed_stage = pd.DataFrame(
-        data_preprocessed_stage,
-        columns=preprocessor.get_feature_names_out()
-        )
-
-    return data_preprocessed_stage
-
-
-def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
-    """
-    Function to use after the model_age function for both Paris and BA.
-    """
-
     #Creature volume column
-    hauteur = data['scaler__hauteur_m']
-    rayon = data['scaler__rayon_cm']
+    hauteur = data['hauteur_m']
+    rayon = data['rayon_cm']
     list_volume = list()
 
     for h, R in zip(hauteur, rayon):
@@ -54,12 +31,9 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
 
     data['volume_m3'] = list_volume
 
-    #Create density column
-    data['wood_density'] = 0.5
-
     #Create BEF column
     list_bef = list()
-    diametre = data['scaler__diametre_cm']
+    diametre = data['diametre_cm']
     for d in diametre:
         if d >= 12.5:
             list_bef.append(1.15)
@@ -68,7 +42,7 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
             list_bef.append(bef)
     data['bef']= list_bef
 
-    #Root-shoot ratio for tree
+    #Create Rj column (Root-shoot ratio for tree)
     hauteur = data['hauteur_m']
     list_rj = list()
     for element in hauteur:
@@ -105,7 +79,8 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
 
     #Pipeline
     preprocessor = ColumnTransformer([
-        ('stage encoder', LabelEncoder(), ['remainder__stade_de_developpement'])],
+        ('species', OneHotEncoder(sparse = False), ['nom_scientifique']),
+        ('scaler', RobustScaler(), ['hauteur_m', 'diametre_cm', 'rayon_cm'])],
         remainder='passthrough')
 
     #Fit the pipeline and transform the dataset
