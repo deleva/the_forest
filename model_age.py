@@ -6,15 +6,14 @@ from preprocessor import  preprocessor_stage
 
 
 
-def define_age_tree(data_paris: pd.DataFrame, data_ba: pd.DataFrame) -> np.ndarray:
+def define_age_tree(data_paris: pd.DataFrame, data_ba: pd.DataFrame):
     """
     Use the Paris dataset to fit a classification model.
     Model to predict the stage of development of the tree from the hight and circumference.
     The possible stages: 'Jeune (arbre)', 'Jeune (arbre)Adulte', 'Adulte', 'Mature'.
     Stage 'Sénesescent' is not present in data_paris.
 
-    Columns data_paris: ['stade_de_developpement', 'hauteur_m', 'diametre_cm'].
-    Columns data_predict:['hauteur_m', 'diametre_cm']
+    Returns the two dataframes: data_paris, data_ba
     """
 
     data_paris = preprocessor_stage(data_paris)
