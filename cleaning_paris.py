@@ -4,7 +4,7 @@ import pandas as pd
 def cleaning_pa(data_pa):
 
     # Separate Longitudes and Latitudes
-    data_pa[['Long','Lat']] = data_pa['geo_point_2d'].str.split(",", expand=True)
+    data_pa[['long','lat']] = data_pa['geo_point_2d'].str.split(",", expand=True)
 
     # Transform Circonférence to Diamètre
     data_pa['CIRCONFERENCE (cm)'] = data_pa['CIRCONFERENCE (cm)'].apply(lambda x : x/math.pi)
@@ -13,7 +13,7 @@ def cleaning_pa(data_pa):
     data_pa['rayon'] = data_pa['CIRCONFERENCE (cm)'].apply(lambda x : x/2)
 
     # Drop all trees with no measurable size
-    data_pa = data_pa[(data_pa['HAUTEUR (m)'] > 0) & (data_pa['CIRCONFERENCE (cm)'] > 0)]
+    data_pa = data_pa[(data_pa['HAUTEUR (m)'] > 0) | (data_pa['CIRCONFERENCE (cm)'] > 0)]
 
     # Drop Columns unecessary columns and re-order them
     data_pa = data_pa[['IDBASE', 'ARRONDISSEMENT', 'GENRE', 'STADE DE DEVELOPPEMENT',
