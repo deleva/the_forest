@@ -71,27 +71,27 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
     #Root-shoot ratio for tree
 
     #Estimation of tree biomass using the BEF method
-    volumen = data['volume_m3']
+    volume = data['volume_m3']
     rj = data['Rj']
     bef = data['bef']
 
     list_biomass = []
 
-    for V, Rj , BEF in zip(volumen , rj , bef)
-        Btree = V * 0,5* (1+Rj) * BEF
+    for V, Rj , BEF in zip(volume , rj , bef):
+        Btree = V * 0.5* (1+Rj) * BEF
         list_biomass.append(Btree)
 
     data['Btree'] = list_biomass
 
     #Carbon stock in tree biomass
-    list_result = []
+    list_carbon = []
     Btree_result = data['Btree']
     for Btree in Btree_result :
         CFtree = 0.55
         C=(44/12)*CFtree*Btree
-        list_result.append(C)
+        list_carbon.append(C)
 
-    data['C'] = list_result
+    data['carbon'] = list_carbon
 
     #Pipeline
     preprocessor = ColumnTransformer([
