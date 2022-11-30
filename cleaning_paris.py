@@ -55,4 +55,9 @@ def cleaning_pa(data_pa):
     data_pa['nom_scientifique'] = data_pa['nom_scientifique'].str.lower()
     data_pa['stade_de_developpement'] = data_pa['stade_de_developpement'].str.lower()
 
+    # Transform columns in integers or floats
+    cols = ['hauteur_m', 'long', 'lat']
+    data_pa[cols] = data_pa[cols].apply(pd.to_numeric, downcast = 'float')
+    data_pa['arrondissement'] = data_pa['arrondissement'].astype('int64')
+
     return data_pa
