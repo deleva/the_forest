@@ -102,8 +102,15 @@ def cleaning_paris(data_pa : pd.DataFrame) -> pd.DataFrame :
 
     data_pa = data_pa.replace({"arrondissement": arrdt})
 
-    # Lower casing
+    # Lower casing and strip string
     data_pa['nom_scientifique'] = data_pa['nom_scientifique'].str.lower()
     data_pa['stade_de_developpement'] = data_pa['stade_de_developpement'].str.lower()
+    data_pa['nom_scientifique'] = data_pa['nom_scientifique'].str.strip()
+    data_pa['stade_de_developpement'] = data_pa['stade_de_developpement'].str.strip()
+
+    # Transform columns in integers or floats
+    cols = ['hauteur_m', 'long', 'lat']
+    data_pa[cols] = data_pa[cols].apply(pd.to_numeric, downcast = 'float')
+    data_pa['arrondissement'] = data_pa['arrondissement'].astype('int64')
 
     return data_pa
