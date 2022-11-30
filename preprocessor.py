@@ -43,7 +43,7 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
     data['bef']= list_bef
 
     #Create Rj column (Root-shoot ratio for tree)
-    hauteur = data['scaler__hauteur_m']
+    hauteur = data['hauteur_m']
     list_rj = list()
     for element in hauteur:
         if element <= 5:
