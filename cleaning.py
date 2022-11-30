@@ -26,7 +26,7 @@ def data_cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
 
     # Remove trees that have null/NaN height or diameter
     data_ba = data_ba[(data_ba['hauteur_m'] > 0) | (data_ba['diametre_cm'] > 0)]
-    data_ba = data_ba.dropna(axis=0, subset=['diametre_cm', 'hauteur_cm'], how='any')
+    data_ba = data_ba.dropna(axis=0, subset=['diametre_cm', 'hauteur_m'], how='any')
 
     # Reduce the number of species
     species_list = list(data_ba['nom_scientifique'].unique())
