@@ -17,7 +17,7 @@ def preprocessor_stage(data: pd.DataFrame) -> pd.DataFrame:
         if s in species_commun:
             return s
         else:
-            return 'no_species'
+            return 'other_species'
     data['nom_scientifique'] = data['nom_scientifique'].map(good_species)
 
     #Pipeline
@@ -33,6 +33,7 @@ def preprocessor_stage(data: pd.DataFrame) -> pd.DataFrame:
         data_preprocessed_stage,
         columns=preprocessor.get_feature_names_out()
         )
+
     return data_preprocessed_stage
 
 
@@ -68,29 +69,39 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
     data['bef']= list_bef
 
     #Root-shoot ratio for tree
+    hauteur = data['hauteur_m']
+    list_rj = list()
+    for element in hauteur:
+        if element <= 5:
+            list_rj.append(0.45)
+        elif element > 11:
+            list_rj.append(0.2)
+        else:
+            list_rj.append(0.35)
+    data['Rj'] = list_rj
 
     #Estimation of tree biomass using the BEF method
-    volumen = data['volume_m3']
+    volume = data['volume_m3']
     rj = data['Rj']
     bef = data['bef']
 
     list_biomass = []
 
-    for V, Rj , BEF in zip(volumen , rj , bef)
-        Btree = V * 0,5* (1+Rj) * BEF
+    for V, Rj , BEF in zip(volume , rj , bef):
+        Btree = V * 0.5* (1+Rj) * BEF
         list_biomass.append(Btree)
 
     data['Btree'] = list_biomass
 
     #Carbon stock in tree biomass
-    list_result = []
+    list_carbon = []
     Btree_result = data['Btree']
     for Btree in Btree_result :
         CFtree = 0.55
         C=(44/12)*CFtree*Btree
-        list_result.append(C)
+        list_carbon.append(C)
 
-    data['C'] = list_result
+    data['carbon'] = list_carbon
 
     #Pipeline
     preprocessor = ColumnTransformer([
