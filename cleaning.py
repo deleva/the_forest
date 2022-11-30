@@ -3,7 +3,7 @@ import math
 import pandas as pd
 
 
-def data_cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
+def cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
     '''
     Allows you to clean Bueno Aires trees dataset.
     Takes the dataframe as an input to return a dataframe with the columns :
