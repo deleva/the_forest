@@ -69,6 +69,16 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
     data['bef']= list_bef
 
     #Root-shoot ratio for tree
+    hauteur = data['hauteur_m']
+    list_rj = list()
+    for element in hauteur:
+        if element <= 5:
+            list_rj.append(0.45)
+        elif element > 11:
+            list_rj.append(0.2)
+        else:
+            list_rj.append(0.35)
+    data['Rj'] = list_rj
 
     #Estimation of tree biomass using the BEF method
     volume = data['volume_m3']
