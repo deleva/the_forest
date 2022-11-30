@@ -10,19 +10,19 @@ def cleaning_pa(data_pa):
     data_pa['CIRCONFERENCE (cm)'] = data_pa['CIRCONFERENCE (cm)'].apply(lambda x : x/math.pi)
 
     # Insert new radius Column
-    data_pa['rayon'] = data_pa['CIRCONFERENCE (cm)'].apply(lambda x : x/2)
+    data_pa['rayon_cm'] = data_pa['CIRCONFERENCE (cm)'].apply(lambda x : x/2)
 
     # Drop all trees with no measurable size
     data_pa = data_pa[(data_pa['HAUTEUR (m)'] > 0) | (data_pa['CIRCONFERENCE (cm)'] > 0)]
 
     # Drop Columns unecessary columns and re-order them
     data_pa = data_pa[['IDBASE', 'ARRONDISSEMENT', 'GENRE', 'STADE DE DEVELOPPEMENT',
-                             'CIRCONFERENCE (cm)', 'HAUTEUR (m)', 'Long', 'Lat', 'rayon']]
+                             'CIRCONFERENCE (cm)', 'HAUTEUR (m)', 'Long', 'Lat', 'rayon_cm']]
     data_pa = data_pa.iloc[:, [6, 7, 0, 1, 2, 3, 4, 5, 8]]
 
     #Re-name to match other Dataset
     data_pa.columns = ['long', 'lat', 'id', 'arrondissement', 'nom_scientifique',
-                            'stade_de_developpement', 'diametre_cm', 'hauteur_m', 'rayon']
+                            'stade_de_developpement', 'diametre_cm', 'hauteur_m', 'rayon_cm']
 
     # Drop Non-specified Trees
     data_pa = data_pa.loc[(data_pa["nom_scientifique"] != 'Non spécifié')]
@@ -50,5 +50,9 @@ def cleaning_pa(data_pa):
          }
 
     data_pa = data_pa.replace({"arrondissement": arrdt})
+
+    # Lower casing
+    data_pa['nom_scientifique'] = data_pa['nom_scientifique'].str.lower()
+    data_pa['stade_de_developpement'] = data_pa['stade_de_developpement'].str.lower()
 
     return data_pa
