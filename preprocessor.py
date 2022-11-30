@@ -21,3 +21,7 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
     data['hauteur_m'] = r_scaler.transform(data[['hauteur_m']])
 
     #Pipeline
+    preprocessor = ColumnTransformer([
+        ('num_tr', num_transformer, ['age', 'bmi']),
+        ('cat_tr', cat_transformer, ['smoker', 'region'])
+    ])
