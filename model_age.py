@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.linear_model import LogisticRegression
-from preprocessor import  preprocessor_stage
 from sklearn.preprocessing import LabelEncoder
 
 
