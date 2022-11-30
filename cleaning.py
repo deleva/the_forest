@@ -1,6 +1,5 @@
 import re
 import math
-import pandas as pd
 
 def data_cleaning_ba(data_ba):
     '''
