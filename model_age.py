@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import LabelEncoder
@@ -11,9 +10,9 @@ def define_stage_tree(data_paris: pd.DataFrame, data_ba: pd.DataFrame):
     Model to predict the stage of development of the tree from the hight and circumference.
 
     The possible stages encoded:
-    'Jeune (arbre)':0 ,
-    'Jeune (arbre)Adulte':1,
-    'Adulte':2,
+    'Jeune (arbre)':1 ,
+    'Jeune (arbre)Adulte':2,
+    'Adulte':0,
     'Mature':3.
     Stage 'Sénesescent' is not present in data_paris.
 
