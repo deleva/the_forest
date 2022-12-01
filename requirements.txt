@@ -9,3 +9,5 @@ seaborn
 scikit-learn
 math
 statistics
+google-cloud-storage
+imblearn
