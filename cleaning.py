@@ -55,7 +55,7 @@ def cleaning_paris(data_pa : pd.DataFrame) -> pd.DataFrame :
     '''
 
     # Separate Longitudes and Latitudes
-    data_pa[['Long','Lat']] = data_pa['geo_point_2d'].str.split(",", expand=True)
+    data_pa[['Lat','Long']] = data_pa['geo_point_2d'].str.split(",", expand=True)
 
     # Transform Circonférence to Diamètre
     data_pa['CIRCONFERENCE (cm)'] = data_pa['CIRCONFERENCE (cm)'].apply(lambda x : x/math.pi)
