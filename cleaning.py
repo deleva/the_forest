@@ -25,7 +25,7 @@ def cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
     data_ba = data_ba[data_ba['nom_scientifique'] != 'No identificado']
 
     # Remove trees that have null/NaN height or diameter
-    data_ba = data_ba[(data_ba['hauteur_m'] > 0) & (data_ba['diametre_cm'] > 0)]
+    data_ba = data_ba[(data_ba['hauteur_m'] > 0) & (data_ba['diametre_cm'] >= 1)]
     data_ba = data_ba.dropna(axis=0, subset=['diametre_cm', 'hauteur_m'], how='any')
 
     # Reduce the number of species
@@ -64,7 +64,7 @@ def cleaning_paris(data_pa : pd.DataFrame) -> pd.DataFrame :
     data_pa['rayon_cm'] = data_pa['CIRCONFERENCE (cm)'].apply(lambda x : x/2)
 
     # Drop all trees with no measurable size
-    data_pa = data_pa[(data_pa['HAUTEUR (m)'] > 0) & (data_pa['CIRCONFERENCE (cm)'] > 0)]
+    data_pa = data_pa[(data_pa['HAUTEUR (m)'] > 0) & (data_pa['CIRCONFERENCE (cm)'] >= 1) & (data_pa['CIRCONFERENCE (cm)'] < 1000)]
 
     # Drop unecessary columns and re-order them
     data_pa = data_pa[['IDBASE', 'ARRONDISSEMENT', 'GENRE', 'STADE DE DEVELOPPEMENT',
