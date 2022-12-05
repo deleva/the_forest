@@ -11,3 +11,4 @@ math
 statistics
 google-cloud-storage
 imblearn
+statsmodels
