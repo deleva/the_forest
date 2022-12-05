@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
+import streamlit as st
 
+@st.cache
 def tree_stats_df(paris_clean, ba_clean):
     '''
     After cleaning, we get paris_clean and ba_clean.
