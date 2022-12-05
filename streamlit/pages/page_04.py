@@ -10,6 +10,6 @@ st.markdown("""
     Map of Paris
 
     ## Focus on predictions
-    Planting trees of a certain species (=> average diameter): the carbon stock at a certain stage of development.
+    Planting trees of a certain species (=> average diameter): the carbon stock at a certain stage of development. \\
     -> API
 """)
