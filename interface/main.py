@@ -2,9 +2,19 @@ from google.cloud import storage
 import pandas as pd
 from cleaning import cleaning_ba , cleaning_paris
 from preprocessor import preprocessor
-from model_age import define_age_tree
+from model_age import define_stage_tree
+import streamlit as st
+from google.oauth2 import service_account
+
 
 def get_data():
+
+    # Create API client.
+    credentials = service_account.Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"]
+    )
+    storage_client = storage.Client(credentials=credentials)
+
     # The ID of your GCS bucket
     bucket_name = "bucket-the-forest"
 
@@ -12,7 +22,6 @@ def get_data():
     name_csv_ba = "arbolado-publico-lineal-2017-2018.csv"
     name_csv_paris = "les-arbres-paris-2022.csv"
 
-    storage_client = storage.Client()
     bucket = storage_client.get_bucket(bucket_name)
 
     blob1 = bucket.blob(name_csv_ba)
@@ -33,4 +42,4 @@ if 'name'=='__main__':
     data_paris = preprocessor(data_paris)
     data_ba = preprocessor(data_ba)
 
-    data_paris , data_ba = define_age_tree(data_paris , data_ba)
+    data_paris , data_ba = define_stage_tree(data_paris , data_ba)
