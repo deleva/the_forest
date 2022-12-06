@@ -12,3 +12,5 @@ statistics
 google-cloud-storage
 imblearn
 streamlit
+fsspec
+gcsfs
