@@ -1,8 +1,9 @@
 import re
 import math
 import pandas as pd
+import streamlit as st
 
-
+@st.cache
 def cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
     '''
     Allows you to clean Bueno Aires trees dataset.
@@ -44,7 +45,7 @@ def cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
 
     return data_ba
 
-
+@st.cache
 def cleaning_paris(data_pa : pd.DataFrame) -> pd.DataFrame :
     '''
     Allows you to clean Paris trees dataset.

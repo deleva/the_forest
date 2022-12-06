@@ -3,7 +3,8 @@ from tables import tree_stats_df
 from cleaning import cleaning_ba, cleaning_paris
 from interface.main import get_data
 
-#Get data
+
+
 data_paris , data_ba = get_data()
 #Clean data
 paris_clean = cleaning_paris(data_paris)
