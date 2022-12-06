@@ -3,12 +3,12 @@ import math
 import pandas as pd
 import streamlit as st
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
     '''
     Allows you to clean Bueno Aires trees dataset.
     Takes the dataframe as an input to return a dataframe with the columns :
-    ['long', 'lat', 'id', 'arrondissement', 'nom_scientifique', 'diametre_cm', 'hauteur_m']
+    ['lon', 'lat', 'id', 'arrondissement', 'nom_scientifique', 'diametre_cm', 'hauteur_m']
     This function is specific to Buenos Aires
     '''
     #Drop columns
@@ -17,7 +17,7 @@ def cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
     data_ba = data_ba.drop(columns=columns_to_drop)
 
     #rename columns
-    data_ba.columns = ['long', 'lat', 'id', 'arrondissement', 'nom_scientifique', 'diametre_cm', 'hauteur_m']
+    data_ba.columns = ['lon', 'lat', 'id', 'arrondissement', 'nom_scientifique', 'diametre_cm', 'hauteur_m']
 
     #Compute radius
     data_ba['rayon_cm'] = data_ba['diametre_cm'].apply(lambda x: x/2)
@@ -45,12 +45,12 @@ def cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
 
     return data_ba
 
-@st.cache
+@st.cache(allow_output_mutation=True)
 def cleaning_paris(data_pa : pd.DataFrame) -> pd.DataFrame :
     '''
     Allows you to clean Paris trees dataset.
     Takes the dataframe as an input to return a dataframe with the columns :
-    ['long', 'lat', 'id', 'arrondissement', 'nom_scientifique',
+    ['lon', 'lat', 'id', 'arrondissement', 'nom_scientifique',
         'stade_de_developpement', 'diametre_cm', 'hauteur_m', 'rayon_cm']
     This function is specific to Paris
     '''
@@ -73,7 +73,7 @@ def cleaning_paris(data_pa : pd.DataFrame) -> pd.DataFrame :
     data_pa = data_pa.iloc[:, [6, 7, 0, 1, 2, 3, 4, 5, 8]]
 
     #Re-name to match other Dataset
-    data_pa.columns = ['long', 'lat', 'id', 'arrondissement', 'nom_scientifique',
+    data_pa.columns = ['lon', 'lat', 'id', 'arrondissement', 'nom_scientifique',
                             'stade_de_developpement', 'diametre_cm', 'hauteur_m', 'rayon_cm']
 
     # Drop Non-specified Trees
@@ -110,7 +110,7 @@ def cleaning_paris(data_pa : pd.DataFrame) -> pd.DataFrame :
     data_pa['stade_de_developpement'] = data_pa['stade_de_developpement'].str.strip()
 
     # Transform columns in integers or floats
-    cols = ['hauteur_m', 'long', 'lat']
+    cols = ['hauteur_m', 'lon', 'lat']
     data_pa[cols] = data_pa[cols].apply(pd.to_numeric, downcast = 'float')
     data_pa['arrondissement'] = data_pa['arrondissement'].astype('int64')
 
