@@ -200,3 +200,60 @@ def stage_carbon_df(paris_stage, ba_stage):
         stage_df[f'Number of trees {city}'] = trees
 
     return stage_df
+
+
+def average_diameter(paris_clean, paris_preprocess):
+    '''
+    From paris_clean and paris_preprocess.
+    Columns: ['Average Carbon stock/tree (in tons of CO2) Paris', 'Number of trees',
+        'Average diameter stage Young',
+        'Average diameter stage Young Adult',
+        'Average diameter stage Adult',
+        'Average diameter stage Mature']
+    Indices: the 85 commun species
+    '''
+
+    species_commun = ['rhus', 'castanea', 'viburnum', 'malus', 'punica', 'carya', 'phoenix', 'cydonia', 'picea', 'pterocarya', 'crataegus', 'paulownia', 'photinia', 'thuja', 'ficus', 'calocedrus', 'albizia', 'araucaria', 'tilia', 'betula', 'cryptomeria', 'populus', 'hovenia', 'ligustrum', 'pyrus', 'butia', 'chamaecyparis', 'cercis', 'magnolia', 'ilex', 'liriodendron', 'platanus', 'poncirus', 'gleditsia', 'acer', 'pinus', 'hibiscus', 'platycladus', 'eriobotrya', 'broussonetia', 'olea', 'fraxinus', 'robinia', 'alnus', 'juniperus', 'carpinus', 'trachycarpus', 'cupressocyparis', 'prunus', 'firmiana', 'lagerstroemia', 'buxus', 'ailanthus', 'koelreuteria', 'fagus', 'ginkgo', 'juglans', 'eucalyptus', 'callistemon', 'melia', 'cinnamomum', 'morus', 'celtis', 'aesculus', 'maclura', 'quercus', 'mespilus', 'laurus', 'catalpa', 'abies', 'cupressus', 'pittosporum', 'cordyline', 'ulmus', 'sambucus', 'cotoneaster', 'carica', 'taxodium', 'euonymus', 'cedrus', 'diospyros', 'acca', 'acacia', 'salix', 'liquidambar']
+    stages = ['jeune (arbre)', 'jeune (arbre)adulte', 'adulte', 'mature']
+
+    df = pd.DataFrame(index = species_commun)
+
+    carbon = list()
+    trees= list()
+    stage_lists = [[], [], [], []]
+
+    for s in species_commun:
+        sub_df = paris_preprocess[paris_preprocess[f'species__nom_scientifique_{s}']== 1]
+        sub_clean = paris_clean[paris_clean['nom_scientifique']==s]
+
+        C = np.round(sub_df['remainder__carbon'].mean(), 2)
+        carbon.append(C)
+        trees.append(sub_df.shape[0])
+
+        for ind in range(4):
+            stage_clean = sub_clean[sub_clean['stade_de_developpement']==stages[ind]]
+            stage_lists[ind].append(stage_clean['diametre_cm'].mean())
+
+
+    df['Average Carbon stock/tree (in tons of CO2) Paris'] = carbon
+    df['Number of trees'] = trees
+    df['Average diameter stage Young'] = stage_lists[0]
+    df['Average diameter stage Young Adult'] = stage_lists[1]
+    df['Average diameter stage Adult'] = stage_lists[2]
+    df['Average diameter stage Mature'] = stage_lists[3]
+
+    return df.sort_values(by=['Average Carbon stock/tree (in tons of CO2) Paris'], ascending=False).head(10)
+
+#For API
+# dict={
+#     'taxodium':{NaN, 37.719722, 69.837189, 92.840383},
+#     'pterocarya':{13.658093, 25.012612, 40.400336, 97.977683},
+#     'cedrus':{15.962651, 34.536623, 47.128857, 85.862904},
+#     'populus':{11.114684, 25.504228, 47.708399, 74.819876},
+#     'platanus':{12.607335, 23.014674, 43.153470, 76.363315},
+#     'aesculus':{14.140222, 22.449675, 41.805955, 73.966669},
+#     'fagus':{10.619080, 25.883469, 38.941035, 87.356965},
+#     'ailanthus':{16.446011, 24.182280, 41.078177, 72.825951},
+#     'salix':{11.042060, 23.229387, 44.405638, 51.839039},
+#     'calocedrus':{11.936621, 19.576058, 36.685214, 66.526766}
+# }
