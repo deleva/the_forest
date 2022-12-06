@@ -27,6 +27,7 @@ def tree_stats_df(paris_clean, ba_clean):
                         203]
     return df
 
+@st.cache
 def carbon_stats_df(paris_preprocess, ba_preprocess):
     '''
     After cleaning and preprocessing, we get paris_preprocess, ba_preprocess.
