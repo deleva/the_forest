@@ -3,7 +3,9 @@ import math
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import RobustScaler
 from sklearn.compose import ColumnTransformer
+import streamlit as st
 
+@st.cache(allow_output_mutation=True)
 def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
     """
     Function to use after the cleaning for both Paris and BA,
