@@ -2,7 +2,8 @@ import streamlit as st
 from cleaning import cleaning_ba, cleaning_paris
 from interface.main import get_data
 from preprocessor import preprocessor
-from tables import carbon_stats_df
+from model_age import define_stage_tree
+from tables import carbon_stats_df, stage_carbon_df
 
 st.markdown("""
     # The Carbon Stock
@@ -44,7 +45,11 @@ ba_clean = cleaning_ba(data_ba)
 #Preprocess data
 paris_preprocess = preprocessor(paris_clean)
 ba_preprocess = preprocessor(ba_clean)
-#DataFrame
-df = carbon_stats_df(paris_preprocess, ba_preprocess)
+#Model stage
+paris_stage, ba_stage = define_stage_tree(paris_preprocess, ba_preprocess)
+#DataFrames
+df1 = carbon_stats_df(paris_preprocess, ba_preprocess)
+df2 = stage_carbon_df(paris_stage, ba_stage)
 
-st.write(df)
+st.write(df1)
+st.write(df2)

@@ -14,12 +14,12 @@ st.markdown("""
     ## Distribution of the trees
 """)
 
-#Get data
-data_paris , data_ba = get_data()
-#Clean data
-paris_clean = cleaning_paris(data_paris)
-#Preprocess
-paris_preprocess = preprocessor(paris_clean)
+# #Get data
+# data_paris , data_ba = get_data()
+# #Clean data
+# paris_clean = cleaning_paris(data_paris)
+# #Preprocess
+# paris_preprocess = preprocessor(paris_clean)
 
 st.markdown("""
     ## Focus on the Carbon stock vs the GHG emissions
@@ -28,9 +28,6 @@ st.markdown("""
     ## Focus on predictions
             """)
 
-#Dataframe predictions
-df = paris_predictions(paris_preprocess)
-st.write(df)
 
 st.markdown("""
     ## Maps Tableau
