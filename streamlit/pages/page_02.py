@@ -13,17 +13,14 @@ st.markdown("""
 """)
 
 st.latex(r'''
-         B_{TREE, j, t} = V_{TREE, j, t} * D_j * BEF_j * (1+R_j)
+         B_{TREE, t} = V_{TREE, t} * \text{coefficients}
     ''')
 
 st.markdown('''
             With:
 
         - $V_{TREE, j, t}$: Volume of the tree (in $m^3$) \n
-        - $D_j$: Basic wood density of tree species $j$ \n
-        - $BEF_j$: Biomass expansion factor (for conversion of stem biomass to above-ground tree
-        biomass), for tree species $j$ \n
-        - $R_j$: Root-shoot ratio for tree species $j$.
+        - coefficients: estimated using the height and diameter of the tree.
 
         ## Carbon Stock in tree biomass
             ''')

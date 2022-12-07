@@ -46,6 +46,42 @@ def carbon_stats_df(paris_preprocess, ba_preprocess):
                         np.round(ba_preprocess['remainder__carbon'].sum()/203, 2)]
     return df
 
+def paris_predictions(paris_preprocess):
+    """
+    After cleaning and preprocessing, we get paris_preprocess.
+    This df has columns: [Average Carbon stock/tree (in tons of CO2) Paris,
+        Average Carbon stock/Young tree,
+        Average Carbon stock/Young Adult tree,
+        Average Carbon stock/Adult tree,
+        Average Carbon stock/Mature tree]
+    And indices: top ten species in average carbon stock/tree in Paris.
+    """
+    #top ten in average carbon stock/tree (in tons of CO2) Paris
+    top_ten_species = ['taxodium', 'pterocarya', 'cedrus', 'populus', 'platanus', 'aesculus', 'fagus', 'ailanthus', 'salix', 'calocedrus']
+    stages = ['jeune (arbre)', 'jeune (arbre)adulte', 'adulte', 'mature']
+
+    paris_predict_df = pd.DataFrame(index = top_ten_species)
+
+    total_carbon = list()
+    stage_lists = [[], [], [], []]
+
+    for s in top_ten_species:
+        sub_df = paris_preprocess[paris_preprocess[f'species__nom_scientifique_{s}']== 1]
+
+        C = np.round(sub_df['remainder__carbon'].mean(), 2)
+        total_carbon.append(C)
+
+        for ind in range(4):
+            sub_sub_df = sub_df[sub_df['remainder__stade_de_developpement']==stages[ind]]
+            c = np.round(sub_sub_df['remainder__carbon'].mean(), 2)
+            stage_lists[ind].append(c)
+
+    paris_predict_df['Average Carbon stock/tree (in tons of CO2) Paris'] = total_carbon
+    paris_predict_df['Average Carbon stock/Young tree'] = stage_lists[0]
+    paris_predict_df['Average Carbon stock/Young Adult tree'] = stage_lists[1]
+    paris_predict_df['Average Carbon stock/Adult tree'] = stage_lists[2]
+    paris_predict_df['Average Carbon stock/Mature tree'] = stage_lists[3]
+    return paris_predict_df
 
 # def tree_carbon_stats_df(paris_clean, paris_preprocess, ba_clean, ba_preprocess):
 #     '''
