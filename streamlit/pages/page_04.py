@@ -9,7 +9,7 @@ import pandas as pd
 import streamlit.components.v1 as components
 
 st.markdown("""
-    ## The trees in Paris
+    ## 🌳 The trees in Paris
 """)
 
 
@@ -89,12 +89,12 @@ if __name__ == "__main__":
     main_paris()
 
 st.markdown("""
-    ## The trees in Buenos Aires
+    ## 🌳 The trees in Buenos Aires
 """)
 
 if __name__ == "__main__":
     main_ba()
 
 st.markdown("""
-    ## 📍Paris - trees vs pollution
+    ## 📍Paris - Trees vs Pollution
             """)
