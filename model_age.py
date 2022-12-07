@@ -2,8 +2,9 @@ import pandas as pd
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import LabelEncoder
+import streamlit as st
 
-
+@st.cache
 def define_stage_tree(data_paris: pd.DataFrame, data_ba: pd.DataFrame):
     """
     Use the Paris dataset to fit a classification model.

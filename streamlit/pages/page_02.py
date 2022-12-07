@@ -2,28 +2,26 @@ import streamlit as st
 from cleaning import cleaning_ba, cleaning_paris
 from interface.main import get_data
 from preprocessor import preprocessor
-from tables import carbon_stats_df
+from model_age import define_stage_tree
+from tables import carbon_stats_df, stage_carbon_df
 
 st.markdown("""
     # The Carbon Stock
 
-    ## Tree biomass
+    ### Tree biomass
 
     The biomass of a tree of species *j* at a point of time in year *t* is estimated as:
 """)
 
 st.latex(r'''
-         B_{TREE, j, t} = V_{TREE, j, t} * D_j * BEF_j * (1+R_j)
+         B_{TREE, t} = V_{TREE, t} * \text{coefficients}
     ''')
 
 st.markdown('''
             With:
 
         - $V_{TREE, j, t}$: Volume of the tree (in $m^3$) \n
-        - $D_j$: Basic wood density of tree species $j$ \n
-        - $BEF_j$: Biomass expansion factor (for conversion of stem biomass to above-ground tree
-        biomass), for tree species $j$ \n
-        - $R_j$: Root-shoot ratio for tree species $j$.
+        - coefficients: estimated using the height and diameter of the tree.
 
         ## Carbon Stock in tree biomass
             ''')
@@ -47,7 +45,11 @@ ba_clean = cleaning_ba(data_ba)
 #Preprocess data
 paris_preprocess = preprocessor(paris_clean)
 ba_preprocess = preprocessor(ba_clean)
-#DataFrame
-df = carbon_stats_df(paris_preprocess, ba_preprocess)
+#Model stage
+paris_stage, ba_stage = define_stage_tree(paris_preprocess, ba_preprocess)
+#DataFrames
+df1 = carbon_stats_df(paris_preprocess, ba_preprocess)
+df2 = stage_carbon_df(paris_stage, ba_stage)
 
-st.write(df)
+st.write(df1)
+st.write(df2)
