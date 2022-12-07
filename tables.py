@@ -252,6 +252,106 @@ def average_diameter(paris_clean, paris_preprocess):
 
     return df.sort_values(by=['Average Carbon stock/tree (in tons of CO2) Paris'], ascending=False).head(10)
 
+def dev_stage_mean_diameter(paris_clean,  ba_clean, ba_stage):
+
+    '''
+    Starting from three distinct data sets, paris and buenos aires cleaned but also the dataset from buenos aires passed through cleaning, preprocess and stage.
+    We loop over these datasets in order to create/extract three columns ['mean_diametre_cm', 'stade_de_developpement', 'villes'] for each stage of the tree in each city
+
+    '''
+
+    df = pd.DataFrame(columns = ['stade_de_developpement','mean_diametre_cm', 'ville'])
+    stades = ['jeune (arbre)', 'jeune (arbre)adulte', 'adulte', 'mature']
+    dict_stade = {'jeune (arbre)':1 ,
+        'jeune (arbre)adulte':2,
+        'adulte':0,
+        'mature':3}
+    villes = ['paris', 'buenos aires']
+    cities = []
+    diametres = []
+    for city in villes:
+        for stade in stades:
+            cities.append(city)
+            if city == 'paris':
+                sub_data = paris_clean[paris_clean['stade_de_developpement'] == stade]
+            else:
+                sub_sub_data = ba_clean.merge(ba_stage, right_on = 'remainder__id', left_on = 'id')
+                sub_data = sub_sub_data[sub_sub_data['remainder__stade_de_developpement'] == dict_stade[stade]]
+            mean = sub_data['diametre_cm'].mean()
+            diametres.append(mean)
+
+    df['mean_diametre_cm'] = diametres
+
+    df['stade_de_developpement'] = [1, 2, 3, 4, 1, 2, 3, 4]
+    df['ville'] = cities
+    return df
+
+def top_10_for_each_city(paris_clean, ba_clean):
+
+    '''
+
+    Starting from the two datasets cleaned, we select the 10 most important species for each.
+    Following this we sample these datasets to make them easier to read in graphs. Then we concatenate them.
+
+    '''
+
+    top_ten_pa = ['platanus', 'aesculus', 'tilia', 'acer', 'prunus', 'fraxinus', 'celtis', 'pyrus', 'quercus', 'pinus']
+    top_ten_ba = ['fraxinus', 'platanus', 'ficus', 'tilia', 'ligustrum', 'melia', 'lagerstoemia', 'acer', 'liquidambar', 'populus']
+
+    data_pa_top_10 = paris_clean[paris_clean['nom_scientifique'].isin(top_ten_pa)]
+    data_ba_top_10 = ba_clean[ba_clean['nom_scientifique'].isin(top_ten_ba)]
+    data_paris_graph = pd.DataFrame()
+    data_ba_graph = pd.DataFrame()
+
+    for species in set(data_pa_top_10['nom_scientifique']):
+        sub_species = data_pa_top_10[data_pa_top_10['nom_scientifique']==species]
+        data_pa_sampled = sub_species.sample(frac = 0.5, axis = 0)
+
+        data_paris_graph = pd.concat([data_paris_graph, data_pa_sampled], axis = 0)
+        data_paris_graph = data_paris_graph.drop(columns = ['stade_de_developpement'])
+        data_paris_graph['villes'] = 'paris'
+
+    for species in set(data_ba_top_10['nom_scientifique']):
+        sub_species = data_ba_top_10[data_ba_top_10['nom_scientifique'] == species]
+        data_ba_sampled = sub_species.sample(frac = 0.25, axis = 0)
+        data_ba_graph = pd.concat([data_ba_graph, data_ba_sampled], axis = 0)
+        data_ba_graph['villes'] = 'buenos aires'
+
+    df = pd.concat([data_ba_graph, data_paris_graph], axis = 0)
+    df = df.reset_index()
+    df = df.drop(columns = 'index')
+
+    return df
+
+def two_sampled_frames(paris_clean, ba_clean):
+
+    '''
+    Starting from the two datasets cleaned, we select the 10 most important species for each.
+    Following this we sample these datasets to make them easier to read in graphs.
+
+    '''
+
+    top_ten_pa = ['platanus', 'aesculus', 'tilia', 'acer', 'prunus', 'fraxinus', 'celtis', 'pyrus', 'quercus', 'pinus']
+    top_ten_ba = ['fraxinus', 'platanus', 'ficus', 'tilia', 'ligustrum', 'melia', 'lagerstoemia', 'acer', 'liquidambar', 'populus']
+
+    data_pa_top_10 = paris_clean[paris_clean['nom_scientifique'].isin(top_ten_pa)]
+    data_ba_top_10 = ba_clean[ba_clean['nom_scientifique'].isin(top_ten_ba)]
+    data_paris_graph = pd.DataFrame()
+    data_ba_graph = pd.DataFrame()
+
+    for species in set(data_pa_top_10['nom_scientifique']):
+        sub_species = data_pa_top_10[data_pa_top_10['nom_scientifique']==species]
+        data_pa_sampled = sub_species.sample(frac = 0.5, axis = 0)
+        data_paris_graph = pd.concat([data_paris_graph, data_pa_sampled], axis = 0)
+
+    for species in set(data_ba_top_10['nom_scientifique']):
+        sub_species = data_ba_top_10[data_ba_top_10['nom_scientifique'] == species]
+        data_ba_sampled = sub_species.sample(frac = 0.25, axis = 0)
+        data_ba_graph = pd.concat([data_ba_graph, data_ba_sampled], axis = 0)
+
+    return data_paris_graph, data_ba_graph
+
+
 #For API
 # dict={
 #     'taxodium':{NaN, 37.719722, 69.837189, 92.840383},
