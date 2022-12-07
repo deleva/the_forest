@@ -249,7 +249,7 @@ def height_city(paris_clean, ba_clean):
 
     '''
     Starting from the two datasets cleaned, we select 2 columns ['hauteur_m', 'villes']. Then we concatenate them. To get a dataset to create a simple kdeplot.
-    
+
     '''
 
     paris_clean['ville'] = 'paris'
@@ -270,19 +270,13 @@ def two_sampled_frames(paris_clean, ba_clean):
     Following this we sample these datasets to make them easier to read in graphs.
 
     '''
-
-    top_ten_pa = ['platanus', 'aesculus', 'tilia', 'acer', 'prunus', 'fraxinus', 'celtis', 'pyrus', 'quercus', 'pinus']
-    top_ten_ba = ['fraxinus', 'platanus', 'ficus', 'tilia', 'ligustrum', 'melia', 'lagerstoemia', 'acer', 'liquidambar', 'populus']
-
     top_ten_pa_dict = {'platanus': 'platane', 'aesculus': 'marronnier', 'tilia' : 'tilleul', 'acer': 'erable', 'prunus': 'prunier',
                    'fraxinus': 'frene', 'celtis': 'micocoulier', 'pyrus': 'poirier de chine', 'quercus': 'chene', 'pinus': 'pin'}
     top_ten_ba_dict = {'fraxinus': 'frene', 'platanus': 'platane', 'ficus': 'ficus', 'tilia': 'tilleul', 'ligustrum': 'troene', 'melia': 'margousier',
                    'lagerstoemia': 'lilas', 'acer': 'erable', 'liquidambar': 'liquidambar', 'populus': 'peuplier'}
 
-    data_pa_top_10 = paris_clean[paris_clean['nom_scientifique'].isin(top_ten_pa)]
-    data_ba_top_10 = ba_clean[ba_clean['nom_scientifique'].isin(top_ten_ba)]
-    data_pa_top_10 = data_pa_top_10.replace({'nom_scientifique': top_ten_pa_dict})
-    data_ba_top_10 = data_ba_top_10.replace({'nom_scientifique': top_ten_ba_dict})
+    data_pa_top_10 = paris_clean[paris_clean['nom_scientifique'].isin(top_ten_pa_dict)].replace({'nom_scientifique': top_ten_pa_dict})
+    data_ba_top_10 = ba_clean[ba_clean['nom_scientifique'].isin(top_ten_ba_dict)].replace({'nom_scientifique': top_ten_ba_dict})
     data_paris_graph = pd.DataFrame()
     data_ba_graph = pd.DataFrame()
 
