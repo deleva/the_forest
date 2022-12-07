@@ -8,7 +8,7 @@ from tables import carbon_stats_df, stage_carbon_df
 st.markdown("""
     # The Carbon Stock
 
-    ## Tree biomass
+    ### Tree biomass
 
     The biomass of a tree of species *j* at a point of time in year *t* is estimated as:
 """)

@@ -9,31 +9,11 @@ import pandas as pd
 import streamlit.components.v1 as components
 
 st.markdown("""
-    # Maps
-
-    ## Distribution of the trees
+    ## The trees in Paris
 """)
 
-# #Get data
-# data_paris , data_ba = get_data()
-# #Clean data
-# paris_clean = cleaning_paris(data_paris)
-# #Preprocess
-# paris_preprocess = preprocessor(paris_clean)
 
-st.markdown("""
-    ## Focus on the Carbon stock vs the GHG emissions
-    Map of Paris
-
-    ## Focus on predictions
-            """)
-
-
-st.markdown("""
-    ## Maps Tableau
-            """)
-
-def main():
+def main_paris():
     html_temp_paris = """
                 <div class='tableauPlaceholder' id='viz1670421132542' style='position: relative'>
                     <noscript>
@@ -69,6 +49,7 @@ def main():
                 """
     components.html(html_temp_paris, height=640, width=900)
 
+def main_ba():
     html_temp_ba = """
                 <div class='tableauPlaceholder' id='viz1670421652179' style='position: relative'>
                     <noscript>
@@ -105,4 +86,15 @@ def main():
     components.html(html_temp_ba, height=640, width=900)
 
 if __name__ == "__main__":
-    main()
+    main_paris()
+
+st.markdown("""
+    ## The trees in Buenos Aires
+""")
+
+if __name__ == "__main__":
+    main_ba()
+
+st.markdown("""
+    ## 📍Paris - trees vs pollution
+            """)
