@@ -83,35 +83,6 @@ def paris_predictions(paris_preprocess):
     paris_predict_df['Average Carbon stock/Mature tree'] = stage_lists[3]
     return paris_predict_df
 
-# def tree_carbon_stats_df(paris_clean, paris_preprocess, ba_clean, ba_preprocess):
-#     '''
-#     After cleaning, we get paris_clean and ba_clean.
-#     After preprocessing the clean data, we get paris_preprocess, ba_preprocess.
-#     This df has columns: ['Paris', 'Buenos Aires']
-#     And indices:
-#     ['Number of trees', 'Average height (in m)', 'Average diameter (in cm)', 'Number of species',
-#         'Total Carbon stock (in tons of CO2)', 'Area of city (in km2)', 'Carbon stock/km2']
-#     '''
-#     df = pd.DataFrame(index=['Number of trees', 'Average height (in m)', 'Average diameter (in cm)', 'Number of species',
-#                          'Total Carbon stock (in tons of CO2)', 'Area of city (in km2)', 'Carbon stock/km2'] ,
-#                   columns=['Paris', 'Buenos Aires'])
-
-#     df['Paris'] = [paris_clean.shape[0],
-#                 np.round(paris_clean['hauteur_m'].mean(), 2),
-#                 np.round(paris_clean['diametre_cm'].mean(), 2),
-#                 161,
-#                 np.round(paris_preprocess['remainder__carbon'].sum(), 2),
-#                 105.4,
-#                 np.round(paris_preprocess['remainder__carbon'].sum()/105.4, 2)]
-
-#     df['Buenos Aires'] = [ba_clean.shape[0],
-#                         np.round(ba_clean['hauteur_m'].mean(),2),
-#                         np.round(ba_clean['diametre_cm'].mean(), 2),
-#                         206,
-#                         np.round(ba_preprocess['remainder__carbon'].sum(), 2),
-#                         203,
-#                         np.round(ba_preprocess['remainder__carbon'].sum()/203, 2)]
-#     return df
 
 def arrondissements_paris_df(paris_preprocess):
     '''
@@ -213,18 +184,18 @@ def stage_carbon_df(paris_stage, ba_stage):
     ['Young', 'Young Adult', 'Adult', 'Mature'].
     """
 
-    stages = ['Young', 'Young Adult', 'Adult', 'Mature']
+    stages = ['Young', 'Young adult', 'Adult', 'Mature']
     s_dict = {'Young':1,
-            'Young Adult':2,
+            'Young adult':2,
             'Adult':0,
             'Mature':3}
-    stage_df = pd.DataFrame(index = stages)
+    stage_df = pd.DataFrame(columns = stages)
 
-    for city in ['paris', 'ba']:
+    for city in ['Paris', 'BA']:
         carbon = list()
         trees= list()
         for stage in stages:
-            if city == 'paris':
+            if city == 'Paris':
                 sub_df = paris_stage[paris_stage['remainder__stade_de_developpement']== s_dict[stage]]
             else:
                 sub_df = ba_stage[ba_stage['remainder__stade_de_developpement']== s_dict[stage]]
@@ -233,8 +204,8 @@ def stage_carbon_df(paris_stage, ba_stage):
             carbon.append(C)
             trees.append(sub_df.shape[0])
 
-        stage_df[f'Carbon stock/tree (in tons of CO2) {city}'] = carbon
-        stage_df[f'Number of trees {city}'] = trees
+        stage_df.loc[f'Carbon stock/tree (in tons of CO2) {city}'] = carbon
+        stage_df.loc[f'Number of trees {city}']= trees
 
     return stage_df
 
