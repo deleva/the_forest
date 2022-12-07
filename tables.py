@@ -241,49 +241,23 @@ def dev_stage_mean_diameter(paris_clean, ba_clean, ba_stage):
             diametres.append(mean)
 
     df['mean_diametre_cm'] = diametres
-
     df['stade_de_developpement'] = [1, 2, 3, 4, 1, 2, 3, 4]
     df['ville'] = cities
     return df
 
-def top_10_for_each_city(paris_clean, ba_clean):
+def height_city(paris_clean, ba_clean):
 
     '''
-    Starting from the two datasets cleaned, we select the 10 most important species for each.
-    Following this we sample these datasets to make them easier to read in graphs. Then we concatenate them.
+    Starting from the two datasets cleaned, we select 2 columns ['hauteur_m', 'villes']. Then we concatenate them. To get a dataset to create a simple kdeplot.
+    
     '''
 
-    top_ten_pa = ['platanus', 'aesculus', 'tilia', 'acer', 'prunus', 'fraxinus', 'celtis', 'pyrus', 'quercus', 'pinus']
-    top_ten_ba = ['fraxinus', 'platanus', 'ficus', 'tilia', 'ligustrum', 'melia', 'lagerstoemia', 'acer', 'liquidambar', 'populus']
-    top_ten_pa_dict = {'platanus': 'platane', 'aesculus': 'marronnier', 'tilia' : 'tilleul', 'acer': 'erable', 'prunus': 'prunier',
-                   'fraxinus': 'frene', 'celtis': 'micocoulier', 'pyrus': 'poirier de chine', 'quercus': 'chene', 'pinus': 'pin'}
-    top_ten_ba_dict = {'fraxinus': 'frene', 'platanus': 'platane', 'ficus': 'ficus', 'tilia': 'tilleul', 'ligustrum': 'troene', 'melia': 'margousier',
-                   'lagerstoemia': 'lilas', 'acer': 'erable', 'liquidambar': 'liquidambar', 'populus': 'peuplier'}
+    paris_clean['ville'] = 'paris'
+    data_paris_graph1 = paris_clean[['hauteur_m', 'ville']]
+    ba_clean['villes'] = 'buenos aires'
+    data_ba_graph1 = ba_clean[['hauteur_m', 'ville']]
 
-
-    data_pa_top_10 = paris_clean[paris_clean['nom_scientifique'].isin(top_ten_pa)]
-    data_ba_top_10 = ba_clean[ba_clean['nom_scientifique'].isin(top_ten_ba)]
-    data_pa_top_10 = data_pa_top_10.replace({'nom_scientifique': top_ten_pa_dict})
-    data_ba_top_10 = data_ba_top_10.replace({'nom_scientifique': top_ten_ba_dict})
-
-    data_paris_graph = pd.DataFrame()
-    data_ba_graph = pd.DataFrame()
-
-    for species in set(data_pa_top_10['nom_scientifique']):
-        sub_species = data_pa_top_10[data_pa_top_10['nom_scientifique']==species]
-        data_pa_sampled = sub_species.sample(frac = 0.5, axis = 0)
-
-        data_paris_graph = pd.concat([data_paris_graph, data_pa_sampled], axis = 0)
-        data_paris_graph = data_paris_graph.drop(columns = ['stade_de_developpement'])
-        data_paris_graph['villes'] = 'paris'
-
-    for species in set(data_ba_top_10['nom_scientifique']):
-        sub_species = data_ba_top_10[data_ba_top_10['nom_scientifique'] == species]
-        data_ba_sampled = sub_species.sample(frac = 0.25, axis = 0)
-        data_ba_graph = pd.concat([data_ba_graph, data_ba_sampled], axis = 0)
-        data_ba_graph['villes'] = 'buenos aires'
-
-    df = pd.concat([data_ba_graph, data_paris_graph], axis = 0)
+    df = pd.concat([data_paris_graph1, data_ba_graph1], axis = 0)
     df = df.reset_index()
     df = df.drop(columns = 'index')
 
