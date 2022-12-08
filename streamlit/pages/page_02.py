@@ -65,5 +65,18 @@ paris_stage, ba_stage = define_stage_tree(paris_preprocess, ba_preprocess)
 df1 = carbon_stats_df(paris_preprocess, ba_preprocess)
 df2 = stage_carbon_df(paris_stage, ba_stage)
 
+st.markdown('''
+
+            ### Summary Carbon Stock to City Surface
+
+            ''')
 st.write(df1)
+
+st.markdown('''
+
+            ### Development Stages Key Elements
+
+
+            ''')
+
 st.write(df2)
