@@ -1,11 +1,4 @@
 import streamlit as st
-from interface.main import get_data
-from cleaning import cleaning_paris
-from preprocessor import preprocessor
-from tables import paris_predictions
-import tableauserverclient as TSC
-import pandas as pd
-#import io.StringIO
 import streamlit.components.v1 as components
 
 st.markdown("""
@@ -27,12 +20,12 @@ def main_paris():
                         <param name='site_root' value='' />
                         <param name='name' value='The_Forest_Paris&#47;Tableaudebord1' />
                         <param name='tabs' value='no' />
-                        <param name='toolbar' value='no' />
+                        <param name='toolbar' value='yes' />
                         <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Th&#47;The_Forest_Paris&#47;Tableaudebord1&#47;1.png' />
                         <param name='animate_transition' value='yes' />
                         <param name='display_static_image' value='yes' />
                         <param name='display_spinner' value='yes' />
-                        <param name='display_overlay' value='no' />
+                        <param name='display_overlay' value='yes' />
                         <param name='display_count' value='yes' />
                         <param name='language' value='fr-FR' />
                         <param name='filter' value='publish=yes' />
@@ -94,7 +87,3 @@ st.markdown("""
 
 if __name__ == "__main__":
     main_ba()
-
-st.markdown("""
-    ## 📍Paris - Trees vs Pollution
-            """)
