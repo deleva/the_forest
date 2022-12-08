@@ -4,6 +4,7 @@ from interface.main import get_data
 from preprocessor import preprocessor
 from model_age import define_stage_tree
 from tables import carbon_stats_df, stage_carbon_df
+from PIL import Image
 
 st.markdown("""
     # The Carbon Stock
@@ -36,6 +37,16 @@ st.markdown('''
         - $B_{TREE, t}$: Total tree biomass \n
         - $CF_{TREE}$: Carbon fraction of tree biomass. A default value of 0.50 is used. \n
             ''')
+
+# Graph Carbon Stock per arrondissement
+st.markdown('''
+            Carbon Stock per District in Paris \n
+                   (in tons of CO2)
+
+            ''')
+image = Image.open('data/images/graph_carbon_stock.png')
+
+st.image(image)
 
 #Get data
 data_paris , data_ba = get_data()
