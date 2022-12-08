@@ -1,1 +1,2 @@
 *.toml
+*__pycache__
