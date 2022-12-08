@@ -38,6 +38,8 @@ st.markdown('''
         - $CF_{TREE}$: Carbon fraction of tree biomass. A default value of 0.50 is used. \n
             ''')
 
+
+
 # Graph Carbon Stock per arrondissement
 st.markdown('''
 
