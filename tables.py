@@ -254,7 +254,7 @@ def height_city(paris_clean, ba_clean):
 
     paris_clean['ville'] = 'paris'
     data_paris_graph1 = paris_clean[['hauteur_m', 'ville']]
-    ba_clean['villes'] = 'buenos aires'
+    ba_clean['ville'] = 'buenos aires'
     data_ba_graph1 = ba_clean[['hauteur_m', 'ville']]
 
     df = pd.concat([data_paris_graph1, data_ba_graph1], axis = 0)
@@ -273,7 +273,7 @@ def two_sampled_frames(paris_clean, ba_clean):
     top_ten_pa_dict = {'platanus': 'platane', 'aesculus': 'marronnier', 'tilia' : 'tilleul', 'acer': 'erable', 'prunus': 'prunier',
                    'fraxinus': 'frene', 'celtis': 'micocoulier', 'pyrus': 'poirier de chine', 'quercus': 'chene', 'pinus': 'pin'}
     top_ten_ba_dict = {'fraxinus': 'frene', 'platanus': 'platane', 'ficus': 'ficus', 'tilia': 'tilleul', 'ligustrum': 'troene', 'melia': 'margousier',
-                   'lagerstoemia': 'lilas', 'acer': 'erable', 'liquidambar': 'liquidambar', 'populus': 'peuplier'}
+                   'lagerstroemia': 'lilas', 'acer': 'erable', 'liquidambar': 'liquidambar', 'populus': 'peuplier'}
 
     data_pa_top_10 = paris_clean[paris_clean['nom_scientifique'].isin(top_ten_pa_dict)].replace({'nom_scientifique': top_ten_pa_dict})
     data_ba_top_10 = ba_clean[ba_clean['nom_scientifique'].isin(top_ten_ba_dict)].replace({'nom_scientifique': top_ten_ba_dict})
