@@ -40,13 +40,13 @@ st.markdown('''
 
 # Graph Carbon Stock per arrondissement
 st.markdown('''
-            Carbon Stock per District in Paris \n
-                   (in tons of CO2)
+
+            ###Carbon Stock per District in Paris
 
             ''')
 image = Image.open('data/images/graph_carbon_stock.png')
 
-st.image(image)
+st.image(image, caption = 'Carbon stock is in tons of CO2')
 
 #Get data
 data_paris , data_ba = get_data()
