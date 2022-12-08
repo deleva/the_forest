@@ -64,5 +64,5 @@ custom_css = f"""
             }}
     </style> """
 
-button_link = custom_css + f'<a href="/page_04" target="_self" style="text-align: right;" id="{button_id}">Next page</a>'
+button_link = custom_css + f'<a href="/Maps" target="_self" style="text-align: right;" id="{button_id}">Next page</a>'
 st.markdown(button_link, unsafe_allow_html=True)

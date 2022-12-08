@@ -70,7 +70,7 @@ st.markdown('''
             ### Summary Carbon Stock to City Surface
 
             ''')
-st.write(df1)
+st.write(df1.style.format(subset=['Paris', 'Buenos Aires'], formatter="{:.2f}"))
 
 st.markdown('''
 
@@ -79,4 +79,4 @@ st.markdown('''
 
             ''')
 
-st.write(df2)
+st.write(df2.style.format(subset=['Young', 'Young adult', 'Adult', 'Mature'], formatter="{:.2f}"))
