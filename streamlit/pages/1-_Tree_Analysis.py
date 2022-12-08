@@ -21,4 +21,4 @@ paris_clean = cleaning_paris(data_paris)
 ba_clean = cleaning_ba(data_ba)
 #Dataframe
 df = tree_stats_df(paris_clean, ba_clean)
-st.write(df)
+st.write(df.style.format(subset=['Paris', 'Buenos Aires'], formatter="{:.2f}"))
