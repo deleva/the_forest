@@ -20,12 +20,14 @@ st.markdown("""
 
     Using the performance metric R-squared (R²), we fitted and tested 7 different regression models.
 
-    📈 R² represents the proportion of the variance of the target explained by the features.
+    R² measures the strength of the model. The closer to 1, the better the model 🥇
 
-    🚀 Out of the 7 models, the best one is:
+    Out of the 7 models, the best one is:
 
     ⚡ **GradientBoosting Regressor** with a R-squared of 0.86:\\
         GradientBoostingRegressor(learning_rate= 0.6, loss= 'huber', n_estimators= 50)
+
+    Gradient Boosting is an ensemble learning method which creates predictions using previous erronious predictions :
 """)
 
 # Explication sur le GradientBoostingRegressor
