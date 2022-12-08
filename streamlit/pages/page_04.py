@@ -1,11 +1,4 @@
 import streamlit as st
-from interface.main import get_data
-from cleaning import cleaning_paris
-from preprocessor import preprocessor
-from tables import paris_predictions
-import tableauserverclient as TSC
-import pandas as pd
-#import io.StringIO
 import streamlit.components.v1 as components
 
 st.markdown("""
@@ -94,7 +87,3 @@ st.markdown("""
 
 if __name__ == "__main__":
     main_ba()
-
-st.markdown("""
-    ## 📍Paris - Trees vs Pollution
-            """)

@@ -14,4 +14,3 @@ imblearn
 streamlit
 fsspec
 gcsfs
-tableauserverclient
