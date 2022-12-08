@@ -1,5 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import re
+import uuid
 
 st.markdown("""
     ## 🌳 The trees in Paris
@@ -87,3 +89,35 @@ st.markdown("""
 
 if __name__ == "__main__":
     main_ba()
+
+button_uuid = str(uuid.uuid4()).replace('-', '')
+button_id = re.sub('\d+', '', button_uuid)
+
+custom_css = f"""
+    <style>
+        #{button_id} {{
+            background-color: rgb(255, 255, 255);
+            color: rgb(38, 39, 48);
+            padding: 0.25em 0.38em;
+            position: relative;
+            text-decoration: none;
+            border-radius: 4px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(230, 234, 241);
+            border-image: initial;
+
+        }}
+        #{button_id}:hover {{
+            border-color: rgb(53,172,122);
+            color: rgb(53,172,122);
+        }}
+        #{button_id}:active {{
+            box-shadow: none;
+            background-color: rgb(53,172,122);
+            color: white;
+            }}
+    </style> """
+
+button_link = custom_css + f'<a href="/carbon_stock" target="_self" style="text-align: right;" id="{button_id}">Next page</a>'
+st.markdown(button_link, unsafe_allow_html=True)
