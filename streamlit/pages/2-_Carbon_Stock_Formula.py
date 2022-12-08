@@ -36,17 +36,20 @@ st.markdown('''
 
         - $B_{TREE, t}$: Total tree biomass \n
         - $CF_{TREE}$: Carbon fraction of tree biomass. A default value of 0.50 is used. \n
+
+
             ''')
+
 
 # Graph Carbon Stock per arrondissement
 st.markdown('''
-            Carbon Stock per District in Paris \n
-                   (in tons of CO2)
+
+            ### Carbon Stock per District in Paris
 
             ''')
 image = Image.open('data/images/graph_carbon_stock.png')
 
-st.image(image)
+st.image(image, caption = 'Carbon stock is in tons of CO2')
 
 #Get data
 data_paris , data_ba = get_data()
@@ -62,5 +65,18 @@ paris_stage, ba_stage = define_stage_tree(paris_preprocess, ba_preprocess)
 df1 = carbon_stats_df(paris_preprocess, ba_preprocess)
 df2 = stage_carbon_df(paris_stage, ba_stage)
 
+st.markdown('''
+
+            ### Summary Carbon Stock to City Surface
+
+            ''')
 st.write(df1)
+
+st.markdown('''
+
+            ### Development Stages Key Elements
+
+
+            ''')
+
 st.write(df2)
