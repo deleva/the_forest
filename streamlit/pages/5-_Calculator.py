@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 
+
 st.markdown("""# The Carbon Stock calculator🖩
 ### Choose how many 🌳 you want to plant and see how much carbon they will store
 """)
@@ -9,14 +10,18 @@ st.markdown("""# The Carbon Stock calculator🖩
 with st.form(key='params_for_pred'):
 
 
-    number_of_trees= st.number_input('🌱 Number of trees ', value=1)
+    arrondissement_paris= st.selectbox('Choose your arrondissement',('1e','2e','3e','4e','5e','6e','7e','8e','9e','10e','11e','12e','13e','14e','15e','16e','17e','18e','19e','20e'))
+
+    number_of_trees= st.number_input('🌱 How many trees are you planning to plant? ', value=1)
     #st.form_submit_button('Number of trees')
 
-    tree_species= st.selectbox('Kind of species',('bald cypress','Chinese wingnut', 'cedar','poplar','sycamore','horsechestnut', 'European beech', 'tree of heaven', 'Willows','incense cedar'))
+    tree_species= st.selectbox('Choose your kind of tree',('Cyprès','Noyer','Cèdre','Peuplier','Erable','Marronnier','Hêtre','Ailante Glanduleux','Saule','Calocèdre'))
+
 
     #st.write('text',tree_species)
 
     #st.form_submit_button('Name of species')
+
 
 
     st.form_submit_button('Carbon calculation 🌳 ')
@@ -38,8 +43,21 @@ def carbon_stock(number_of_trees,tree_species):
 
 carbon_tree = carbon_stock(number_of_trees,tree_species)
 
-st.markdown("""
-### Metrics results in Tons of CO2
+
+def your_arrondissement(arrondissement_paris):
+    df_ar = pd.read_csv('data/carbon_arrondissement.csv',index_col='Unnamed: 0' )
+    carbon_arrondissement = df_ar.loc[arrondissement_paris , 'Total Carbon stock']
+
+    return carbon_arrondissement
+
+carbon_arrondissement_paris_1 = your_arrondissement(arrondissement_paris)
+
+#st.write()
+#col1 = st.columns(1)
+st.write(f"Your current carbon stock in the {arrondissement_paris} is {your_arrondissement(arrondissement_paris)} Tons of CO2")
+st.markdown("""###
+### Metrics results in Tons of CO2 for the new trees
+
 """)
 
 
