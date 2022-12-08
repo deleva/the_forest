@@ -41,7 +41,7 @@ st.markdown('''
 # Graph Carbon Stock per arrondissement
 st.markdown('''
 
-            ###Carbon Stock per District in Paris
+            ### Carbon Stock per District in Paris
 
             ''')
 image = Image.open('data/images/graph_carbon_stock.png')
