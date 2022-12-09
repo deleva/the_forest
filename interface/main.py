@@ -1,6 +1,6 @@
 from google.cloud import storage
 import pandas as pd
-from cleaning import cleaning_ba , cleaning_paris
+from streamlit_forest.cleaning import cleaning_ba , cleaning_paris
 from preprocessor import preprocessor
 from model_age import define_stage_tree
 import streamlit as st
