@@ -1,5 +1,5 @@
 import streamlit as st
-from tables import tree_stats_df
+from code.tables import tree_stats_df
 from cleaning import cleaning_ba, cleaning_paris
 from interface.main import get_data
 
