@@ -1,8 +1,8 @@
 import streamlit as st
 from forest.cleaning import cleaning_ba, cleaning_paris
-from interface.main import get_data
-from preprocessor import preprocessor
-from model_age import define_stage_tree
+from forest.interface.main import get_data
+from forest.preprocessor import preprocessor
+from forest.model_age import define_stage_tree
 from forest.tables import carbon_stats_df, stage_carbon_df
 from PIL import Image
 
