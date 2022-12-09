@@ -1,7 +1,7 @@
 import streamlit as st
 from forest.tables import tree_stats_df
 from forest.cleaning import cleaning_ba, cleaning_paris
-from interface.main import get_data
+from forest.interface.main import get_data
 
 
 st.markdown("""
