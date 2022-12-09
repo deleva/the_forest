@@ -1,7 +1,7 @@
 import streamlit as st
-from ...tables import tree_stats_df
-from ...cleaning import cleaning_ba, cleaning_paris
-from ...interface.main import get_data
+from tables import tree_stats_df
+from streamlit_forest.cleaning import cleaning_ba, cleaning_paris
+from interface.main import get_data
 
 
 st.markdown("""
