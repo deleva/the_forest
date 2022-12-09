@@ -1,5 +1,5 @@
 import streamlit as st
-from cleaning import cleaning_ba, cleaning_paris
+from streamlit_forest.cleaning import cleaning_ba, cleaning_paris
 from interface.main import get_data
 from preprocessor import preprocessor
 from model_age import define_stage_tree
