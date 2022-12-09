@@ -1,8 +1,8 @@
 from google.cloud import storage
 import pandas as pd
-from cleaning import cleaning_ba , cleaning_paris
-from preprocessor import preprocessor
-from model_age import define_stage_tree
+from forest.cleaning import cleaning_ba , cleaning_paris
+from forest.preprocessor import preprocessor
+from forest.model_age import define_stage_tree
 import streamlit as st
 from google.oauth2 import service_account
 
