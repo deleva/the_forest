@@ -1,6 +1,6 @@
 import streamlit as st
-from streamlit_forest.tables import tree_stats_df
-from streamlit_forest.cleaning import cleaning_ba, cleaning_paris
+from tables import tree_stats_df
+from cleaning import cleaning_ba, cleaning_paris
 from interface.main import get_data
 
 
