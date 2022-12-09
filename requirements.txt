@@ -14,4 +14,4 @@ imblearn
 streamlit
 fsspec
 gcsfs
-.
+git+https://github.com/deleva/the_forest.git
