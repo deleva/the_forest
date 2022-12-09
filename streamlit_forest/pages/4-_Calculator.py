@@ -54,7 +54,7 @@ carbon_arrondissement_paris_1 = your_arrondissement(arrondissement_paris)
 
 #st.write()
 #col1 = st.columns(1)
-st.markdown(f"<h1 style='text-align: center; color: grey; font-size:200%;'>Your current carbon stock in the {arrondissement_paris} arrondissement is {your_arrondissement(arrondissement_paris)} Tons of CO2</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center; color: grey; font-size:200%;'>Your current carbon stock in the {arrondissement_paris} arrondissement is <span style='color:green;'>{your_arrondissement(arrondissement_paris)} Tons of CO2</span></h1>", unsafe_allow_html=True)
 # st.markdown(f"Your current carbon stock in the {arrondissement_paris} is {your_arrondissement(arrondissement_paris)} Tons of CO2")
 st.markdown("""###
 ### Metrics results in Tons of CO2 for the new trees
