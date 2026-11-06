@@ -3,7 +3,7 @@ import math
 import pandas as pd
 import streamlit as st
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
     '''
     Allows you to clean Bueno Aires trees dataset.
