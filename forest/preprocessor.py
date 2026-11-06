@@ -5,7 +5,7 @@ from sklearn.preprocessing import RobustScaler
 from sklearn.compose import ColumnTransformer
 import streamlit as st
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
     """
     Function to use after the cleaning for both Paris and BA,
@@ -81,7 +81,7 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
 
     #Pipeline
     preprocessor = ColumnTransformer([
-        ('species', OneHotEncoder(sparse = False), ['nom_scientifique']),
+        ('species', OneHotEncoder(sparse_output=False), ['nom_scientifique']),
         ('scaler', RobustScaler(), ['hauteur_m', 'diametre_cm', 'rayon_cm'])],
         remainder='passthrough')
 
