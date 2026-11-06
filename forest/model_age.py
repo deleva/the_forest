@@ -4,7 +4,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import LabelEncoder
 import streamlit as st
 
-@st.cache
+@st.cache_data
 def define_stage_tree(data_paris: pd.DataFrame, data_ba: pd.DataFrame):
     """
     Use the Paris dataset to fit a classification model.
