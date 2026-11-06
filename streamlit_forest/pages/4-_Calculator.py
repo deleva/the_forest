@@ -55,7 +55,7 @@ carbon_arrondissement_paris_1 = your_arrondissement(arrondissement_paris)
 #st.write()
 #col1 = st.columns(1)
 st.markdown(f"<h3 style='color: darkgreen; font-weight: 400; padding-bottom:0;'>Your current carbon stock in the {arrondissement_paris} arrondissement is</h3>", unsafe_allow_html=True)
-st.markdown(f"<h1 style='text-align: center; color: green; font-size:200%; padding-top:0;'>{your_arrondissement(arrondissement_paris)} Tons of CO2</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center; color: green; font-size:200%; padding-top:0;'>{your_arrondissement(arrondissement_paris)} tons of CO2</h1>", unsafe_allow_html=True)
 
 st.markdown("### Metrics results in Tons of CO2 for the new trees")
 
@@ -67,7 +67,7 @@ def pct_of_today(value):
     return f"+{pct:.2g}% vs today"  # keeps very small numbers readable instead of showing 0.00%
 
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Young", f'{round((carbon_tree[0]),2)}', pct_of_today(carbon_tree[0]))
-col2.metric("Young adult", f'{round((carbon_tree[1]),2)}', pct_of_today(carbon_tree[1]))
-col3.metric("Adult", f'{round((carbon_tree[2]),2)}', pct_of_today(carbon_tree[2]))
-col4.metric("Mature", f'{round((carbon_tree[3]),2)}', pct_of_today(carbon_tree[3]))
+col1.metric("Young", f'{round((carbon_tree[0]),2)} t', pct_of_today(carbon_tree[0]))
+col2.metric("Young adult", f'{round((carbon_tree[1]),2)} t', pct_of_today(carbon_tree[1]))
+col3.metric("Adult", f'{round((carbon_tree[2]),2)} t', pct_of_today(carbon_tree[2]))
+col4.metric("Mature", f'{round((carbon_tree[3]),2)} t', pct_of_today(carbon_tree[3]))
