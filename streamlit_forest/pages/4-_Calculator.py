@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 
-st.markdown("""# The Carbon Stock calculator🖩
+st.markdown("""# The Carbon Stock calculator :material/calculate:
 ### Choose how many 🌳 you want to plant and see how much carbon they will store
 """)
 
