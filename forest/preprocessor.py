@@ -78,19 +78,15 @@ def preprocessor(data: pd.DataFrame) -> pd.DataFrame:
         list_carbon.append(C)
 
     data['carbon'] = list_carbon
-
+    
     #Pipeline
     preprocessor = ColumnTransformer([
-        ('species', OneHotEncoder(sparse_output=False), ['nom_scientifique']),
+        ('species', OneHotEncoder(sparse_output=False, dtype='int8'), ['nom_scientifique']),
         ('scaler', RobustScaler(), ['hauteur_m', 'diametre_cm', 'rayon_cm'])],
         remainder='passthrough')
+    preprocessor.set_output(transform='pandas')
 
     #Fit the pipeline and transform the dataset
-    data_preprocessed = preprocessor.fit_transform(data)
-
-    data_preprocessed = pd.DataFrame(
-        data_preprocessed,
-        columns=preprocessor.get_feature_names_out()
-        )
+    data_preprocessed = preprocessor.fit_transform(data).reset_index(drop=True)
 
     return data_preprocessed
