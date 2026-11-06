@@ -59,9 +59,15 @@ st.markdown(f"<h1 style='text-align: center; color: green; font-size:200%; paddi
 
 st.markdown("### Metrics results in Tons of CO2 for the new trees")
 
+def pct_of_today(value):
+    # New trees' carbon as a % of the arrondissement's current carbon stock
+    pct = value * 100 / carbon_arrondissement_paris_1
+    if pct >= 0.01:
+        return f"+{pct:.2f}% vs today"
+    return f"+{pct:.2g}% vs today"  # keeps very small numbers readable instead of showing 0.00%
 
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Young", f'{round((carbon_tree[0]),2)}', f'{round((carbon_tree[0]*100/carbon_tree[3]),2)}% of mature', delta_arrow="off", delta_color="off")
-col2.metric("Young adult", f'{round((carbon_tree[1]),2)}', f'{round((carbon_tree[1]*100/carbon_tree[3]),2)}% of mature', delta_arrow="off", delta_color="off")
-col3.metric("Adult", f'{round((carbon_tree[2]),2)}', f'{round((carbon_tree[2]*100/carbon_tree[3]),2)}% of mature', delta_arrow="off", delta_color="off")
-col4.metric("Mature", f'{round((carbon_tree[3]),2)}', f'{round((carbon_tree[3]*100/carbon_tree[3]),2)}% of mature', delta_arrow="off", delta_color="off")
+col1.metric("Young", f'{round((carbon_tree[0]),2)}', pct_of_today(carbon_tree[0]))
+col2.metric("Young adult", f'{round((carbon_tree[1]),2)}', pct_of_today(carbon_tree[1]))
+col3.metric("Adult", f'{round((carbon_tree[2]),2)}', pct_of_today(carbon_tree[2]))
+col4.metric("Mature", f'{round((carbon_tree[3]),2)}', pct_of_today(carbon_tree[3]))
