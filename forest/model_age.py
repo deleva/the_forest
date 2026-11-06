@@ -21,7 +21,7 @@ def define_stage_tree(data_paris: pd.DataFrame, data_ba: pd.DataFrame):
     """
 
     #Removing trees with missing stage of developpement
-    data_paris = data_paris.dropna(axis=0, subset=['remainder__stade_de_developpement'])
+    data_paris = data_paris.dropna(axis=0, subset=['remainder__stade_de_developpement']).copy()
 
     #Setting X and y for the model
     X = data_paris[['scaler__hauteur_m', 'scaler__diametre_cm']]
