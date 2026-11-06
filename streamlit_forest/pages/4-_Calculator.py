@@ -61,7 +61,7 @@ st.markdown("### Metrics results in Tons of CO2 for the new trees")
 
 
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Young", f'{round((carbon_tree[0]),2)} ', f'{round((carbon_tree[0]*100/carbon_tree[3]),2)}%')
-col2.metric("Young adult", f'{round((carbon_tree[1]),2)} ', f'{round((carbon_tree[1]*100/carbon_tree[3]),2)}%')
-col3.metric("Adult", f'{round((carbon_tree[2]),2)}',f'{round((carbon_tree[2]*100/carbon_tree[3]),2)}%')
-col4.metric("Mature",f'{round((carbon_tree[3]),2)}', f'{round((carbon_tree[3]*100/carbon_tree[3]),2)}%' )
+col1.metric("Young", f'{round((carbon_tree[0]),2)}', f'{round((carbon_tree[0]*100/carbon_tree[3]),2)}% of mature', delta_arrow="off", delta_color="off")
+col2.metric("Young adult", f'{round((carbon_tree[1]),2)}', f'{round((carbon_tree[1]*100/carbon_tree[3]),2)}% of mature', delta_arrow="off", delta_color="off")
+col3.metric("Adult", f'{round((carbon_tree[2]),2)}', f'{round((carbon_tree[2]*100/carbon_tree[3]),2)}% of mature', delta_arrow="off", delta_color="off")
+col4.metric("Mature", f'{round((carbon_tree[3]),2)}', f'{round((carbon_tree[3]*100/carbon_tree[3]),2)}% of mature', delta_arrow="off", delta_color="off")
