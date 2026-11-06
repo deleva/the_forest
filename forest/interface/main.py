@@ -1,39 +1,29 @@
-from google.cloud import storage
+from pathlib import Path
 import pandas as pd
-from forest.cleaning import cleaning_ba , cleaning_paris
+import streamlit as st
+from forest.cleaning import cleaning_ba, cleaning_paris
 from forest.preprocessor import preprocessor
 from forest.model_age import define_stage_tree
-import streamlit as st
-from google.oauth2 import service_account
 
+# The raw data now lives in the repo (data/ folder), compressed as .csv.gz.
+# It used to come from a Google Cloud bucket that no longer exists.
+FILE_PARIS = "les-arbres-paris-2022.csv.gz"
+FILE_BA = "arbolado-publico-lineal-2017-2018.csv.gz"
+
+def _data_dir() -> Path:
+    """Find the repo's data/ folder, whether the app runs from the repo root
+    (Streamlit Cloud) or from a subfolder."""
+    for folder in [Path.cwd(), *Path.cwd().parents, Path(__file__).resolve().parents[2]]:
+        if (folder / "data" / FILE_PARIS).exists():
+            return folder / "data"
+    raise FileNotFoundError(f"Could not find data/{FILE_PARIS} in the repo")
+
+@st.cache_data(show_spinner="Loading tree data...")
 def get_data():
-
-    credentials = service_account.Credentials.from_service_account_info(
-        st.secrets["gcp_service_account"]
-    )
-
-    # Create API client.
-    storage_client = storage.Client(credentials=credentials, project='the-forest-370014')
-
-    # The ID of your GCS bucket
-    bucket_name = "bucket-the-forest"
-
-    # The ID of your GCS object
-    name_csv_ba = "arbolado-publico-lineal-2017-2018.csv"
-    name_csv_paris = "les-arbres-paris-2022.csv"
-
-    bucket = storage_client.get_bucket(bucket_name)
-
-    blob1 = bucket.blob(name_csv_ba)
-    path_1 = "gs://bucket-the-forest/data/arbolado-publico-lineal-2017-2018.csv"
-    print(path_1)
-    data_ba = pd.read_csv(path_1)
-
-    blob2 = bucket.blob(name_csv_paris)
-    path_2 = "gs://bucket-the-forest/data/les-arbres-paris-2022.csv"
-    data_paris= pd.read_csv(path_2 , sep=';')
-
-    return data_paris , data_ba
+    data_dir = _data_dir()
+    data_paris = pd.read_csv(data_dir / FILE_PARIS, sep=';', low_memory=False)
+    data_ba = pd.read_csv(data_dir / FILE_BA, low_memory=False)
+    return data_paris, data_ba
 
 if __name__=='__main__':
     data_paris , data_ba = get_data()
