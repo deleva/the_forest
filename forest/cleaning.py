@@ -45,7 +45,7 @@ def cleaning_ba(data_ba : pd.DataFrame) -> pd.DataFrame:
 
     return data_ba
 
-@st.cache(allow_output_mutation=True)
+@st.cache_data
 def cleaning_paris(data_pa : pd.DataFrame) -> pd.DataFrame :
     '''
     Allows you to clean Paris trees dataset.
