@@ -73,5 +73,6 @@ col3.metric("Adult", f'{round((carbon_tree[2]),2)} t', pct_of_today(carbon_tree[
 col4.metric("Mature", f'{round((carbon_tree[3]),2)} t', pct_of_today(carbon_tree[3]))
 
 # Navigation
+st.space("small")
 nav = st.container(horizontal=True)
 nav.page_link("views/prediction_models.py", label="Previous page", icon=":material/arrow_back:")
