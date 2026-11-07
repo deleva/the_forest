@@ -65,6 +65,7 @@ custom_css = f"""
     </style> """
 
 # Navigation
+st.space("small")
 nav = st.container(horizontal=True, horizontal_alignment="distribute")
 nav.page_link("views/carbon_stock_formula.py", label="Previous page", icon=":material/arrow_back:")
 nav.page_link("views/calculator.py", label="Next page", icon=":material/arrow_forward:", icon_position="right")
