@@ -6,5 +6,5 @@ st.markdown("""# THE FOREST
 """)
 
 # Navigation
-col_prev, col_next = st.columns(2)
-col_next.page_link("views/tree_analysis.py", label="Next page", icon=":material/arrow_forward:")
+nav = st.container(horizontal=True, horizontal_alignment="right")
+nav.page_link("views/tree_analysis.py", label="Next page", icon=":material/arrow_forward:", icon_position="right")
