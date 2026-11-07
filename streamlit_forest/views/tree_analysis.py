@@ -24,7 +24,7 @@ df = tree_stats_df(paris_clean, ba_clean)
 st.write(df.style.format(subset=['Paris', 'Buenos Aires'], formatter="{:.2f}"))
 
 # Navigation
-st.space("medium")
+st.space("small")
 nav = st.container(horizontal=True, horizontal_alignment="distribute")
 nav.page_link("home.py", label="Previous page", icon=":material/arrow_back:")
 nav.page_link("views/maps.py", label="Next page", icon=":material/arrow_forward:", icon_position="right")
