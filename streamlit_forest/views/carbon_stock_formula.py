@@ -82,6 +82,6 @@ st.markdown('''
 st.write(df2.style.format(subset=['Young', 'Young adult', 'Adult', 'Mature'], formatter="{:.2f}"))
 
 # Navigation
-col_prev, col_next = st.columns(2)
-col_prev.page_link("views/maps.py", label="Previous page", icon=":material/arrow_back:")
-col_next.page_link("views/prediction_models.py", label="Next page", icon=":material/arrow_forward:")
+nav = st.container(horizontal=True, horizontal_alignment="distribute")
+nav.page_link("views/maps.py", label="Previous page", icon=":material/arrow_back:")
+nav.page_link("views/prediction_models.py", label="Next page", icon=":material/arrow_forward:", icon_position="right")
