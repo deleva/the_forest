@@ -120,6 +120,6 @@ custom_css = f"""
     </style> """
 
 # Navigation
-col_prev, col_next = st.columns(2)
-col_prev.page_link("views/tree_analysis.py", label="Previous page", icon=":material/arrow_back:")
-col_next.page_link("views/carbon_stock_formula.py", label="Next page", icon=":material/arrow_forward:")
+nav = st.container(horizontal=True, horizontal_alignment="distribute")
+nav.page_link("views/tree_analysis.py", label="Previous page", icon=":material/arrow_back:")
+nav.page_link("views/carbon_stock_formula.py", label="Next page", icon=":material/arrow_forward:", icon_position="right")
